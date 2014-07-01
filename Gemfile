@@ -43,6 +43,7 @@ gem 'autoprefixer-rails'
 gem 'devise'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
+gem 'cancan'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
