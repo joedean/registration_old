@@ -11,16 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140713053603) do
+ActiveRecord::Schema.define(version: 20140713061822) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "addresses", force: true do |t|
-    t.string "street_address"
-    t.string "city"
-    t.string "state"
-    t.string "zip_code"
+    t.string   "street_address"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip_code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "companies", force: true do |t|
@@ -35,6 +37,42 @@ ActiveRecord::Schema.define(version: 20140713053603) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "families", force: true do |t|
+    t.string   "name"
+    t.integer  "company_id"
+    t.integer  "user_id"
+    t.integer  "address_id"
+    t.string   "status",                  default: "active"
+    t.string   "emergency_contact_name"
+    t.string   "emergency_contact_phone"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "families", ["address_id"], name: "index_families_on_address_id", using: :btree
+  add_index "families", ["company_id"], name: "index_families_on_company_id", using: :btree
+  add_index "families", ["user_id"], name: "index_families_on_user_id", using: :btree
+
+  create_table "students", force: true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.integer  "family_id",           null: false
+    t.integer  "user_id"
+    t.integer  "address_id"
+    t.string   "mobile_phone"
+    t.string   "email"
+    t.date     "birth_date"
+    t.string   "allergies"
+    t.string   "medical_information"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "students", ["address_id"], name: "index_students_on_address_id", using: :btree
+  add_index "students", ["family_id"], name: "index_students_on_family_id", using: :btree
+  add_index "students", ["user_id"], name: "index_students_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
