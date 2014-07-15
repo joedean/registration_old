@@ -1,0 +1,9 @@
+<td>
+  <%= link_to family.name, family %>
+</td>
+<td>
+  <%= link_to("Edit family", edit_family_path(family), class: 'button-xs') %>
+</td>
+<td>
+  <%= link_to("Delete family", family_path(family), data: { confirm: "Are you sure?" }, method: :delete, class: 'button-xs') %>
+</td>

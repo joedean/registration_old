@@ -1,7 +1,8 @@
 class Student < ActiveRecord::Base
+  has_many :addresses
+
   belongs_to :family
   belongs_to :user
-  belongs_to :address
 
   def age
     now = Time.now.utc.to_date

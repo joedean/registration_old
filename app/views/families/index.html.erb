@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row">
+    <h3>Families</h3>
+    <table class="table">
+      <tbody>
+        <% @families.each do |family| %>
+          <tr>
+            <%= render family %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<%= link_to("Create family", new_family_path, class: 'button-xs') %>

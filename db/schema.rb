@@ -11,12 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140713061822) do
+ActiveRecord::Schema.define(version: 20140715013520) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "addresses", force: true do |t|
+    t.string   "kind",           default: "home", null: false
+    t.integer  "family_id"
     t.string   "street_address"
     t.string   "city"
     t.string   "state"
@@ -42,17 +44,28 @@ ActiveRecord::Schema.define(version: 20140713061822) do
     t.string   "name"
     t.integer  "company_id"
     t.integer  "user_id"
-    t.integer  "address_id"
-    t.string   "status",                  default: "active"
+    t.integer  "active",                  default: 1
     t.string   "emergency_contact_name"
     t.string   "emergency_contact_phone"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "families", ["address_id"], name: "index_families_on_address_id", using: :btree
   add_index "families", ["company_id"], name: "index_families_on_company_id", using: :btree
   add_index "families", ["user_id"], name: "index_families_on_user_id", using: :btree
+
+  create_table "guardians", force: true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "type"
+    t.integer  "family_id"
+    t.string   "mobile_phone"
+    t.string   "work_phone"
+    t.string   "email"
+    t.integer  "active"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "students", force: true do |t|
     t.string   "first_name"
@@ -65,7 +78,7 @@ ActiveRecord::Schema.define(version: 20140713061822) do
     t.date     "birth_date"
     t.string   "allergies"
     t.string   "medical_information"
-    t.string   "status"
+    t.integer  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
