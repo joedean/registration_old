@@ -8,7 +8,7 @@ class CreateGuardians < ActiveRecord::Migration
       t.string     :mobile_phone
       t.string     :work_phone
       t.string     :email
-      t.integer    :active
+      t.integer    :active, null: false, default: 1
 
       t.timestamps
     end

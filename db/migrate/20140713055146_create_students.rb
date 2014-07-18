@@ -11,7 +11,7 @@ class CreateStudents < ActiveRecord::Migration
       t.date       :birth_date
       t.string     :allergies
       t.string     :medical_information
-      t.integer    :active
+      t.integer    :active, null: false, default: 1
 
       t.timestamps
     end

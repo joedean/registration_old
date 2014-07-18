@@ -41,10 +41,11 @@ ActiveRecord::Schema.define(version: 20140715013520) do
   end
 
   create_table "families", force: true do |t|
-    t.string   "name"
+    t.string   "name",                                null: false
     t.integer  "company_id"
     t.integer  "user_id"
-    t.integer  "active",                  default: 1
+    t.string   "home_phone"
+    t.integer  "active",                  default: 1, null: false
     t.string   "emergency_contact_name"
     t.string   "emergency_contact_phone"
     t.datetime "created_at"
@@ -62,7 +63,7 @@ ActiveRecord::Schema.define(version: 20140715013520) do
     t.string   "mobile_phone"
     t.string   "work_phone"
     t.string   "email"
-    t.integer  "active"
+    t.integer  "active",       default: 1, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -70,7 +71,7 @@ ActiveRecord::Schema.define(version: 20140715013520) do
   create_table "students", force: true do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.integer  "family_id",           null: false
+    t.integer  "family_id",                       null: false
     t.integer  "user_id"
     t.integer  "address_id"
     t.string   "mobile_phone"
@@ -78,7 +79,7 @@ ActiveRecord::Schema.define(version: 20140715013520) do
     t.date     "birth_date"
     t.string   "allergies"
     t.string   "medical_information"
-    t.integer  "active"
+    t.integer  "active",              default: 1, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
