@@ -1,24 +1,93 @@
-<%= form_for(@family, html: {class: 'form-horizontal', role: 'form'}) do |f| %>
-  <%= render 'shared/text_field_attribute', form: f, attribute_name: :name %>
-  <%= f.fields_for :addresses do |address_form| %>
-    <%= render 'shared/text_field_attribute', form: address_form, attribute_name: :street_address %>
-    <%= render 'shared/text_field_attribute', form: address_form, attribute_name: :city %>
-    <%= render 'shared/text_field_attribute', form: address_form, attribute_name: :state %>
-    <%= render 'shared/text_field_attribute', form: address_form, attribute_name: :zip_code %>
-  <% end %>
-  <%= render 'shared/text_field_attribute', form: f, attribute_name: :emergency_contact_name %>
-  <%= render 'shared/text_field_attribute', form: f, attribute_name: :emergency_contact_phone %>
-  <%= render 'shared/check_box_attribute',  form: f, attribute_name: :active %>
-  Student:
-  <%= f.fields_for :students do |student_form| %>
-    <%= render 'shared/text_field_attribute', form: student_form, attribute_name: :first_name %>
-    <%= render 'shared/text_field_attribute', form: student_form, attribute_name: :last_name %>
-    <%= render 'shared/text_field_attribute', form: student_form, attribute_name: :mobile_phone %>
-    <%= render 'shared/text_field_attribute', form: student_form, attribute_name: :email %>
-    <%= render 'shared/date_field_attribute', form: student_form, attribute_name: :birth_date %>
-  <% end %>
+<%= form_for @family, html: {class: 'form-horizontal', role: 'form'} do |form| %>
+
+  <h4><strong>Family Information</strong></h4>
+
   <div class="form-group">
-    <div class="col-sm-offset-3 col-sm-9">
+    <%= form.label :family_name, class: 'col-xs-2 control-label' %>
+    <div class="col-xs-6">
+      <%= form.text_field :name, class: 'form-control', placeholder: "Family Name" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :home_phone, class: 'col-xs-2 control-label' %>
+    <div class="col-xs-6">
+      <%= form.telephone_field :home_phone, class: 'form-control', placeholder: "Home Phone" %>
+    </div>
+  </div>
+
+  <%= form.fields_for :addresses do |address_form| %>
+    <div class="form-group">
+      <%= address_form.label :home_address, class: 'col-xs-2 control-label' %>
+      <div class="col-xs-6">
+        <%= address_form.text_field :street_address, class: 'form-control', placeholder: "Street Address" %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= address_form.label " ", class: 'col-xs-2 control-label' %>
+      <div class="col-xs-3">
+        <%= address_form.text_field :city, class: 'form-control', placeholder: "City" %>
+      </div>
+      <div class="col-xs-1">
+        <%= address_form.text_field :state, class: 'form-control', placeholder: "State" %>
+      </div>
+      <div class="col-xs-2">
+        <%= address_form.text_field :zip_code, class: 'form-control', placeholder: "Zip Code" %>
+      </div>
+      <div class="col-xs-6">&nbsp;</div>
+    </div>
+  <% end %>
+
+  <h4><strong>Students</strong></h4>
+  <%= form.fields_for :students do |student_form| %>
+    <%= render partial: "student_fields", locals: { form: student_form } %>
+  <% end %>
+  <%= link_to_add_fields "Add Student", form, :students %>
+
+  <h4><strong>Guardians</strong></h4>
+
+  <%= form.fields_for :guardians do |guardian_form| %>
+    <div class="row">
+      <div class="col-xs-2">
+        <%= guardian_form.text_field :first_name, class: 'form-control', placeholder: "First Name" %>
+      </div>
+      <div class="col-xs-3">
+        <%= guardian_form.text_field :last_name, class: 'form-control', placeholder: "Last Name" %>
+      </div>
+      <div class="col-xs-2">
+        <%= guardian_form.text_field :mobile_phone, class: 'form-control', placeholder: "Mobile Phone" %>
+      </div>
+      <div class="col-xs-2">
+        <%= guardian_form.text_field :work_phone, class: 'form-control', placeholder: "Work Phone" %>
+      </div>
+      <div class="col-xs-3">
+        <%= guardian_form.text_field :email, class: 'form-control', placeholder: "Email" %>
+      </div>
+    </div>
+  <% end %>
+
+  <h4><strong>Emergency Contact</strong></h4>
+  <div class="row">
+      <div class="col-xs-6">
+        <%= form.text_field :emergency_contact_name, class: 'form-control', placeholder: "Name" %>
+      </div>
+      <div class="col-xs-6">
+        <%= form.text_field :emergency_contact_phone, class: 'form-control', placeholder: "Phone" %>
+      </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-12">
+      <div class="checkbox">
+        <label>
+          <%= form.check_box :active %> Active
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-12">
       <button type="submit" class="btn btn-default">Save</button>
     </div>
   </div>

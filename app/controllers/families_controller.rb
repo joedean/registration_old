@@ -13,6 +13,7 @@ class FamiliesController < ApplicationController
     @family = Family.new
     @family.addresses.build
     @family.students.build
+    @family.guardians.build
   end
 
   def create
