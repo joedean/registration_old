@@ -9,7 +9,10 @@ class Family < ActiveRecord::Base
 
   belongs_to :company
 
-  def self.all_by_company company_id
-    where(company_id: company_id).order(:name)
+  self.per_page = 15
+
+  def self.all_by_company options
+    where(company_id: options[:company_id]).paginate(page: options[:page]).order(:name)
   end
+
 end

@@ -12,4 +12,9 @@
     </table>
   </div>
 </div>
-<%= link_to("Create family", new_family_path, class: 'button-xs') %>
+<div class="text-center">
+  <%= will_paginate @families %>
+</div>
+<div class="container">
+  <%= link_to("Create family", new_family_path, class: 'button-xs') %>
+</div>

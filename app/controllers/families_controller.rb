@@ -2,7 +2,8 @@ class FamiliesController < ApplicationController
   before_filter :set_company_id #make this part of login
 
   def index
-    @families = Family.all_by_company session[:company_id]
+    params[:company_id] ||= session[:company_id]
+    @families = Family.all_by_company params
   end
 
   def show

@@ -8,9 +8,10 @@ RSpec.describe Family, :type => :model do
       let!(:deans) { create(:family, name: "Dean", company: sbdc) }
       let!(:roberts) { create(:family, name: "Roberts", company: sbdc) }
       let!(:browns) { create(:family, name: "Browns", company: coderdojo) }
+      let(:options) { {company_id: sbdc.id} }
 
       it "lists all families by company" do
-        expect(Family.all_by_company sbdc.id).to eq([deans, roberts])
+        expect(Family.all_by_company options).to eq([deans, roberts])
       end
     end
   end
