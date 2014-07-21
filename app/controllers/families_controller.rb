@@ -30,6 +30,7 @@ class FamiliesController < ApplicationController
 
   def edit
     @family = Family.find(params[:id])
+    @family.addresses.build if @family.addresses.empty?
   end
 
   def update
@@ -50,16 +51,21 @@ class FamiliesController < ApplicationController
   private
 
   def secure_params
-    params.require(:family).permit(:name,
+    params.require(:family).permit(:_destroy,
+                                   :name,
+                                   :home_phone,
                                    :emergency_contact_name,
                                    :emergency_contact_phone,
                                    :active,
                                    addresses_attributes: [:id, :kind, :street_address,
                                                           :city, :state, :zip_code,
                                                           :_destroy],
-                                   students_attributes: [:id, :first_name, :last_name,
-                                                         :mobile_phone, :email,
-                                                         :birth_date])
+                                   students_attributes:  [:id, :first_name, :last_name,
+                                                          :mobile_phone, :email,
+                                                          :birth_date, :_destroy],
+                                   guardians_attributes: [:id, :first_name, :last_name,
+                                                          :mobile_phone, :email,
+                                                          :work_phone, :_destroy])
   end
 
   def set_company_id

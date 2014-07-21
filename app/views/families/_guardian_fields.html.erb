@@ -9,7 +9,7 @@
         <%= form.text_field :last_name, class: 'form-control', placeholder: "Last Name" %>
       </div>
       <div class="col-sm-3 pull-right">
-        <%= link_to_remove_fields "Remove Student", form %>
+        <%= link_to_remove_fields "Remove Guardian", form %>
       </div>
     </div>
 
@@ -21,30 +21,16 @@
     </div>
 
     <div class="form-group">
+      <%= form.label :work_phone, class: 'col-xs-2 control-label' %>
+      <div class="col-sm-6">
+        <%= form.phone_field :work_phone, class: 'form-control', placeholder: "Work Phone" %>
+      </div>
+    </div>
+
+    <div class="form-group">
       <%= form.label :email, class: 'col-xs-2 control-label' %>
       <div class="col-sm-6">
-        <%= form.email_field :email, class: 'form-control', placeholder: "Email" %>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <%= form.label :birth_date, class: 'col-xs-2 control-label' %>
-      <div class="col-sm-6">
-        <%= form.date_field :birth_date, class: 'form-control', placeholder: :birth_date %>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <%= form.label :allergies, class: 'col-xs-2 control-label' %>
-      <div class="col-sm-6">
-        <%= form.text_field :allergies, class: 'form-control' %>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <%= form.label :medical_information, class: 'col-xs-2 control-label' %>
-      <div class="col-sm-6">
-        <%= form.text_area :medical_information, cols: 10, rows: 5, class: 'form-control' %>
+        <%= form.text_field :email, class: 'form-control', placeholder: "Email" %>
       </div>
     </div>
   </div>

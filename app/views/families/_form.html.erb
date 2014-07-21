@@ -46,26 +46,10 @@
   <%= link_to_add_fields "Add Student", form, :students %>
 
   <h4><strong>Guardians</strong></h4>
-
   <%= form.fields_for :guardians do |guardian_form| %>
-    <div class="row">
-      <div class="col-xs-2">
-        <%= guardian_form.text_field :first_name, class: 'form-control', placeholder: "First Name" %>
-      </div>
-      <div class="col-xs-3">
-        <%= guardian_form.text_field :last_name, class: 'form-control', placeholder: "Last Name" %>
-      </div>
-      <div class="col-xs-2">
-        <%= guardian_form.text_field :mobile_phone, class: 'form-control', placeholder: "Mobile Phone" %>
-      </div>
-      <div class="col-xs-2">
-        <%= guardian_form.text_field :work_phone, class: 'form-control', placeholder: "Work Phone" %>
-      </div>
-      <div class="col-xs-3">
-        <%= guardian_form.text_field :email, class: 'form-control', placeholder: "Email" %>
-      </div>
-    </div>
+    <%= render partial: "guardian_fields", locals: { form: guardian_form } %>
   <% end %>
+  <%= link_to_add_fields "Add Guardian", form, :guardians %>
 
   <h4><strong>Emergency Contact</strong></h4>
   <div class="row">
