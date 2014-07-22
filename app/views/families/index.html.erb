@@ -1,7 +1,17 @@
 <div class="container">
   <div class="row">
     <h3>Families</h3>
-    <table class="table">
+    <%= form_tag(families_path, method: "get") do %>
+      <%= text_field_tag(:q) %>
+      <%= submit_tag("Search") %>
+    <% end %>
+    <table class="table table-striped table-hover table-responsive">
+      <thead>
+        <th>Name</th>
+        <th>Student(s)</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </thead>
       <tbody>
         <% @families.each do |family| %>
           <tr>

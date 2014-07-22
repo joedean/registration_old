@@ -3,7 +3,7 @@ class FamiliesController < ApplicationController
 
   def index
     params[:company_id] ||= session[:company_id]
-    @families = Family.all_by_company params
+    @families = Family.list params
   end
 
   def show

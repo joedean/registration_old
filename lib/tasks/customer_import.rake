@@ -3,7 +3,7 @@ require 'csv'
 namespace :customer_import do
   desc "Import student and parent data from a quickbooks customer export to csv"
   task import_from_quickbooks_customer_export: :environment do |task, args|
-    company = Company.find(3)
+    company = Company.where(name: "SBDC").first
     CSV.foreach('sbdc_customers.csv', headers: true) do |line|
 
       home_phone, mother_first_name, guardian_last_name, student_mobile_phone = nil

@@ -2,8 +2,18 @@
   <%= link_to family.name, family %>
 </td>
 <td>
-  <%= link_to("Edit family", edit_family_path(family), class: 'button-xs') %>
+  <% family.students.each do |student| %>
+    <%= student.first_name %>
+    (<%= age(student) %>)<br/>
+  <% end %>
 </td>
 <td>
-  <%= link_to("Delete family", family_path(family), data: { confirm: "Are you sure?" }, method: :delete, class: 'button-xs') %>
+  <%= link_to(edit_family_path(family), class: 'button-xs') do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+  <% end %>
+</td>
+<td>
+  <%= link_to(family_path(family), data: { confirm: "Are you sure?" }, method: :delete, class: 'button-xs') do %>
+    <span class="glyphicon glyphicon-trash"></span>
+  <% end %>
 </td>

@@ -11,8 +11,15 @@ class Family < ActiveRecord::Base
 
   self.per_page = 15
 
-  def self.all_by_company options
-    where(company_id: options[:company_id]).paginate(page: options[:page]).order(:name)
+  def self.list(params)
+    results = where(company_id: params[:company_id]).search(params[:q])
+    results.paginate(page: params[:page]).order(:name)
   end
 
+  def self.search(query)
+    result = includes(:students).references(:students)
+    return result unless query
+    result.where("name LIKE :query OR students.first_name LIKE :query",
+                 {query: "%#{query}%"})
+  end
 end
