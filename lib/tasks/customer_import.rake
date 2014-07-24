@@ -4,6 +4,7 @@ namespace :customer_import do
   desc "Import student and parent data from a quickbooks customer export to csv"
   task import_from_quickbooks_customer_export: :environment do |task, args|
     company = Company.where(name: "SBDC").first
+    #Parser.new("SBDC", "sbdc_customers.csv").execute
     CSV.foreach('sbdc_customers.csv', headers: true) do |line|
 
       home_phone, mother_first_name, guardian_last_name, student_mobile_phone = nil
@@ -265,6 +266,16 @@ def parse_birth_date birth_date
   puts "birth_date = #{birth_date}"
   birth_dates = /(^.*\/\d\d) ?(.*)/.match(birth_date)
   return {} unless birth_dates
-  { birth_date: birth_dates[1],
+  birth_date = birth_dates[1].strip.split('/')
+  if birth_date.size != 3
+    birth_date = nil
+  else
+    month = birth_date[0]
+    day = birth_date[1]
+    year = birth_date[2]
+    year = "20"+year if year.size == 2 && year.to_i < 20
+    birth_date = "#{month}/#{day}/#{year}"
+  end
+  { birth_date: birth_date,
     name: birth_dates[2] }
 end
