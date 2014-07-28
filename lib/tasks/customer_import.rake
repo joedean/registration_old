@@ -175,7 +175,7 @@ namespace :customer_import do
       birth_dates = [line["birthdates"], line["Bust"], line["Waist"]]
 
       if student_first_names.size == 1
-        birth_date_by_student[student_first_names[0]] = line["birthdates"]
+        birth_date_by_student[student_first_names[0]] = parse_only_birth_date(line["birthdates"])
       else
         birth_dates.each do |birth_date|
           next if birth_date.blank?
@@ -262,9 +262,23 @@ def parse_guardian_names names, family_name=nil
 end
 
 def parse_birth_date birth_date
-  puts "birth_date = #{birth_date}"
-  birth_dates = /(^.*\/\d\d) ?(.*)/.match(birth_date)
-  return {} unless birth_dates
-  { birth_date: birth_dates[1],
-    name: birth_dates[2] }
+  birth_date_data =/(^\d\d?\/\d\d?\/\d{2,}) ?(.*)/.match(birth_date)
+  return {} unless birth_date_data
+  { birth_date: parse_only_birth_date(birth_date_data[1]),
+    name: birth_date_data[2] }
+end
+
+def parse_only_birth_date(birth_date)
+  birth_dates =/(^\d\d?)\/(\d\d?)\/(\d{2,})/.match(birth_date)
+  return unless birth_dates
+  return if birth_dates.size < 3
+  month = birth_dates[1].to_i
+  day = birth_dates[2].to_i
+  year = birth_dates[3].to_i
+  if year < 20
+    year += 2000
+  else
+    year += 1900
+  end
+  Date.new year, month, day
 end
