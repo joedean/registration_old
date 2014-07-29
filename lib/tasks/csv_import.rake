@@ -1,9 +1,14 @@
 require 'csv'
 
-namespace :customer_import do
+namespace :csv_import do
+  desc "Import course data from csv"
+  task import_courses: :environment do |task, args|
+    Parser.new("South Bay Dance Center", "sbdc_classes_2014.csv").execute
+  end
+
   desc "Import student and parent data from a quickbooks customer export to csv"
-  task import_from_quickbooks_customer_export: :environment do |task, args|
-    company = Company.where(name: "SBDC").first
+  task import_customers: :environment do |task, args|
+    company = Company.where(name: "South Bay Dance Center").first
     CSV.foreach('sbdc_customers.csv', headers: true) do |line|
 
       home_phone, mother_first_name, guardian_last_name, student_mobile_phone = nil

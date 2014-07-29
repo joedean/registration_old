@@ -70,6 +70,6 @@ class FamiliesController < ApplicationController
   end
 
   def set_company_id
-    session[:company_id] ||= Company.where(name: "SBDC").first.id
+    session[:company_id] ||= Company.where(name: "South Bay Dance Center").first.id
   end
 end

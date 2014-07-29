@@ -3,6 +3,7 @@ class Company < ActiveRecord::Base
 
   has_many :families
   has_many :users
+  has_many :courses
 
   def self.ordered_by_name
     order(:name)

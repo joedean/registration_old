@@ -17,6 +17,7 @@ gem 'omniauth-twitter'
 gem 'pundit'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
+gem 'foreigner'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]
