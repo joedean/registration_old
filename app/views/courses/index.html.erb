@@ -14,7 +14,7 @@
       <tbody>
         <% @courses.each do |course| %>
           <tr class="<%= 'danger' if course.full? %>">
-            <td><%= course.name %></td>
+            <td><%= link_to  course.name, course_students_path(course) %></td>
             <td><%= "#{course.start_age} - #{course.end_age}" %></td>
             <td><%= course.day %></td>
             <td><%= "#{course.start_at.strftime('%l:%M %P')} - #{course.end_at.strftime('%l:%M %P')}" %></td>
