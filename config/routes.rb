@@ -3,4 +3,10 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users
   resources :families
+  resources :students do
+    resources :courses
+  end
+  resources :courses do
+    resources :students
+  end
 end

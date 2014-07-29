@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row">
+    <h3>Students enrolled in <%= @course.name %></h3>
+    <table class="table table-hover">
+      <thead>
+        <th>Name</th>
+        <th>age</th>
+        <th>Edit</th>
+      </thead>
+      <tbody>
+        <% @students.each do |student| %>
+          <tr>
+            <td><%= student.name %></td>
+            <td><%= student.age %> years old</td>
+            <td>
+              <%= link_to(edit_student_path(student), class: 'button-xs') do %>
+                <span class="glyphicon glyphicon-pencil"></span>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

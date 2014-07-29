@@ -1,0 +1,26 @@
+<table class="table table-hover">
+  <thead>
+    <th class="<%= 'hidden-xs hidden-sm' unless editable %>">Add</th>
+    <th>Class Name</th>
+    <th>Age</th>
+    <th>Day</th>
+    <th>Time</th>
+    <th>Studio</th>
+    <th>Status</th>
+  </thead>
+  <tbody>
+    <% courses.each do |course| %>
+      <tr class="<%= 'danger' if course.full? %>">
+        <td class="<%= 'hidden-xs hidden-sm' unless editable %>">
+          <%= check_box_tag "student[course_ids][]", course.id, student.courses.include?(course) %>
+        </td>
+        <td><%= course.name %></td>
+        <td><%= "#{course.start_age} - #{course.end_age}" %></td>
+        <td><%= course.day %></td>
+        <td><%= "#{course.start_at.strftime('%l:%M %P')} - #{course.end_at.strftime('%l:%M %P')}" %></td>
+        <td><%= course.studio %></td>
+        <td><%= "Full" if course.full? %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

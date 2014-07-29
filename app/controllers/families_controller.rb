@@ -63,6 +63,7 @@ class FamiliesController < ApplicationController
                                                           :_destroy],
                                    students_attributes:  [:id, :first_name, :last_name,
                                                           :mobile_phone, :email,
+                                                          :allergies, :medical_information,
                                                           :birth_date, :_destroy],
                                    guardians_attributes: [:id, :first_name, :last_name,
                                                           :mobile_phone, :email,

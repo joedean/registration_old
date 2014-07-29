@@ -11,6 +11,7 @@ class CreateCourses < ActiveRecord::Migration
       t.datetime :start_at
       t.datetime :end_at
       t.string :studio
+      t.integer :max_size
 
       t.timestamps
     end

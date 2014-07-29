@@ -1,10 +1,11 @@
 <td>
-  <%= link_to family.name, family %>
+  <%= link_to family.name, edit_family_path(family) %>
 </td>
 <td>
   <% family.students.each do |student| %>
-    <%= student.first_name %>
-    (<%= age(student) %>)<br/>
+    <%= link_to edit_student_path(student) do %>
+      <%= "#{student.first_name} (#{age(student)})" %>
+    <% end %><br/>
   <% end %>
 </td>
 <td>

@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20140728014632) do
     t.datetime "start_at"
     t.datetime "end_at"
     t.string   "studio"
+    t.integer  "max_size"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

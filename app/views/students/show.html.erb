@@ -1,0 +1,16 @@
+<h1><%= @student.name %></h1>
+
+Age: <%= @student.age %>
+
+<h4>Classes</h4>
+<% if @student.courses.empty? %>
+  <div>
+    Student is not signed up for any classes.
+  </div>
+<% else %>
+  <%= render partial: 'courses', locals: { student: @student,
+                                           courses: @student.courses,
+                                           editable: false } %>
+<% end %>
+
+<%= link_to("Edit", edit_student_path(@student), class: 'button-xs') %>

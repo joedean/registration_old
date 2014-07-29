@@ -1,0 +1,80 @@
+<%= form_for @course, html: {class: 'form-horizontal', role: 'form'} do |form| %>
+  <div class="form-group">
+    <%= form.label :category, class: 'col-xs-3 control-label' %>
+    <div class="col-sm-6">
+      <%= form.select :category, Course::CATEGORIES %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :class_name, class: 'col-xs-3 control-label' %>
+    <div class="col-sm-6">
+      <%= form.text_field :name, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :level, class: 'col-xs-3 control-label' %>
+    <div class="col-sm-6">
+      <%= form.text_field :level, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :start_age, class: 'col-xs-3 control-label' %>
+    <div class="col-sm-6">
+      <%= form.text_field :start_age, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :end_age, class: 'col-xs-3 control-label' %>
+    <div class="col-sm-6">
+      <%= form.text_field :end_age, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.label "Day of the week", class: 'col-xs-3 control-label' %>
+    <div class="col-sm-6">
+      <%= form.select :wday, Date::DAYNAMES.collect { |d| [d, Date::DAYNAMES.index(d)] } %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :start_time, class: 'col-xs-3 control-label' %>
+    <div class="col-sm-6">
+      <%= form.time_field :start_at, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :end_time, class: 'col-xs-3 control-label' %>
+    <div class="col-sm-6">
+      <%= form.time_field :end_at, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :studio, class: 'col-xs-3 control-label' %>
+    <div class="col-sm-6">
+      <%= form.select :studio, Course::STUDIOS %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.label "Max Class Size", class: 'col-xs-3 control-label' %>
+    <div class="col-sm-6">
+      <%= form.text_field :max_size, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-1">
+      <button type="submit" class="btn btn-default">Save</button>
+    </div>
+    <div class="col-sm-3">
+      <%= link_to 'Cancel', courses_path %>
+    </div>
+  </div>
+<% end %>
