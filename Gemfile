@@ -18,6 +18,7 @@ gem 'pundit'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 gem 'foreigner'
+gem 'fullcalendar-rails', git: 'https://github.com/joedean/fullcalendar-rails.git', branch: 'upgrade-to-2.1.0-beta'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]

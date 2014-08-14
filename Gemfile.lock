@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/joedean/fullcalendar-rails.git
+  revision: b205f7c685d5eca8a742c05751724c7209b0d06e
+  branch: upgrade-to-2.1.0-beta
+  specs:
+    fullcalendar-rails (2.1.0.0.pre.beta)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -262,6 +269,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   foreigner
+  fullcalendar-rails!
   guard
   guard-rspec
   jbuilder (~> 2.0)
