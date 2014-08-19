@@ -6,12 +6,17 @@ class Course < ActiveRecord::Base
   STUDIOS = ["A", "B", "C", "D"]
   CATEGORIES = ["Acro", "Ballet", "Hip Hop", "Jazz", "Modern", "Pilates", "Pure Dance", "Tap", "Zumba"]
 
+  def self.studio studio
+    where(studio: studio)
+  end
+
   def self.list(params)
     if params[:student_id]
       result = eager_load(:students).where("students.id = ?", params[:student_id].to_i)
     else
       result = all
     end
+    result = result.studio params[:studio] unless params[:studio].blank?
     result.order(:id)
   end
 

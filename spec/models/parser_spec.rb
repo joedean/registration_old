@@ -110,9 +110,29 @@ RSpec.describe Parser, :type => :model do
         expect(parser.course.start_at.to_formatted_s(:time_only).strip).to eq('3:30 pm')
         expect(parser.course.end_at.to_formatted_s(:time_only).strip).to eq('4:30 pm')
       end
+
+      context "Saturday morning class" do
+        let(:raw_day_and_time_line) { "Saturday 9:30 - 10:30" }
+
+        it "sets day, start_time and end_time in morning" do
+          expect(parser.course.day).to eq("Saturday")
+          expect(parser.course.start_at.to_formatted_s(:time_only).strip).to eq('9:30 am')
+          expect(parser.course.end_at.to_formatted_s(:time_only).strip).to eq('10:30 am')
+        end
+      end
+
+      context "Saturday afternoon classes" do
+        let(:raw_day_and_time_line) { "Saturday 1:30 - 2:30" }
+
+        it "sets day, start_time and end_time in afternoon" do
+          expect(parser.course.day).to eq("Saturday")
+          expect(parser.course.start_at.to_formatted_s(:time_only).strip).to eq('1:30 pm')
+          expect(parser.course.end_at.to_formatted_s(:time_only).strip).to eq('2:30 pm')
+        end
+      end
     end
 
-    context "date entery with trailing whitespace" do
+    context "date entry with trailing whitespace" do
       let(:raw_day_and_time_line) { "Thursday 6:30 - 7:30 " }
 
       it "sets day, start_time and end_time" do

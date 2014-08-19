@@ -70,7 +70,10 @@ class Parser
   end
 
   def parse_time time
-    DateTime.strptime("2000-01-01 #{time} pm", "%Y-%m-%d %l:%M %P")
+    period = "pm"
+    hour = hour time
+    period = "am" if @course.wday == 6 &&  hour < 12 && hour > 8
+    DateTime.strptime("2001-01-#{@course.wday} #{time} #{period}", "%Y-%m-%d %l:%M %P")
   end
 
   def parse_studio studio
@@ -124,5 +127,11 @@ class Parser
       Rails.logger.info "No level can be determined."
     end
     level
+  end
+
+  private
+
+  def hour time
+    time.split(":")[0].to_i
   end
 end
