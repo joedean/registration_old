@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140728014632) do
+ActiveRecord::Schema.define(version: 20140819041205) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 20140728014632) do
     t.integer  "max_size"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "teacher_id"
   end
 
   add_index "courses", ["company_id"], name: "index_courses_on_company_id", using: :btree
@@ -124,6 +125,25 @@ ActiveRecord::Schema.define(version: 20140728014632) do
   add_index "students", ["family_id"], name: "index_students_on_family_id", using: :btree
   add_index "students", ["user_id"], name: "index_students_on_user_id", using: :btree
 
+  create_table "teachers", force: true do |t|
+    t.integer  "company_id",                   null: false
+    t.integer  "user_id"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "mobile_phone"
+    t.string   "email"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.date     "birth_date"
+    t.boolean  "active",       default: true,  null: false
+    t.boolean  "contractor",   default: false, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "teachers", ["company_id"], name: "index_teachers_on_company_id", using: :btree
+  add_index "teachers", ["user_id"], name: "index_teachers_on_user_id", using: :btree
+
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -148,7 +168,12 @@ ActiveRecord::Schema.define(version: 20140728014632) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "courses", "teachers", name: "courses_teacher_id_fk"
+
   add_foreign_key "courses_students", "courses", name: "courses_students_course_id_fk"
   add_foreign_key "courses_students", "students", name: "courses_students_student_id_fk"
+
+  add_foreign_key "teachers", "companies", name: "teachers_company_id_fk"
+  add_foreign_key "teachers", "users", name: "teachers_user_id_fk"
 
 end

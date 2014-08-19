@@ -2,6 +2,7 @@ class Course < ActiveRecord::Base
   has_and_belongs_to_many :students
 
   belongs_to :company
+  belongs_to :teacher
 
   STUDIOS = ["A", "B", "C", "D"]
   CATEGORIES = ["Acro", "Ballet", "Hip Hop", "Jazz", "Modern", "Pilates", "Pure Dance", "Tap", "Zumba"]
@@ -27,5 +28,9 @@ class Course < ActiveRecord::Base
   def full?
     return false unless max_size
     max_size <= students.count
+  end
+
+  def duration
+    (end_at - start_at)/1.hour
   end
 end
