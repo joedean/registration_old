@@ -1,24 +1,24 @@
 require 'rails_helper'
 
-RSpec.describe Parser, :type => :model do
-  let(:parser) { Parser.new nil, nil }
+RSpec.describe CourseParser, :type => :model do
+  let(:course_parser) { CourseParser.new nil, nil }
 
   before do
-    parser.course = Course.new
+    course_parser.model = Course.new
   end
 
   describe "#parse_course" do
     before do
-      parser.parse_course raw_class_line
+      course_parser.parse_course raw_class_line
     end
 
     context "course has pre in it" do
       let(:raw_class_line) { "Pre-Ballet/Tap" }
 
       it "sets course name and category" do
-        expect(parser.course.category).to eq("Ballet")
-        expect(parser.course.name).to eq("Pre-Ballet/Tap")
-        expect(parser.course.level).to eq("Beginner")
+        expect(course_parser.model.category).to eq("Ballet")
+        expect(course_parser.model.name).to eq("Pre-Ballet/Tap")
+        expect(course_parser.model.level).to eq("Beginner")
       end
     end
 
@@ -26,16 +26,16 @@ RSpec.describe Parser, :type => :model do
       let(:raw_class_line) { "Ballet III/IV" }
 
       it "sets course name and category" do
-        expect(parser.course.category).to eq("Ballet")
-        expect(parser.course.name).to eq("Ballet III/IV")
-        expect(parser.course.level).to eq("III/IV")
+        expect(course_parser.model.category).to eq("Ballet")
+        expect(course_parser.model.name).to eq("Ballet III/IV")
+        expect(course_parser.model.level).to eq("III/IV")
       end
     end
   end
 
   describe "#parse_age" do
     before do
-      parser.parse_age raw_age_line
+      course_parser.parse_age raw_age_line
     end
 
     context "basic age range input" do
@@ -43,16 +43,16 @@ RSpec.describe Parser, :type => :model do
         let(:raw_age_line) { "3 - 4 yrs" }
 
         it "sets start_age and end_age" do
-          expect(parser.course.start_age).to eq(3)
-          expect(parser.course.end_age).to eq(4)
+          expect(course_parser.model.start_age).to eq(3)
+          expect(course_parser.model.end_age).to eq(4)
         end
       end
       context "double digit ages" do
         let(:raw_age_line) { "13 - 17 yrs" }
 
         it "sets start_age and end_age" do
-          expect(parser.course.start_age).to eq(13)
-          expect(parser.course.end_age).to eq(17)
+          expect(course_parser.model.start_age).to eq(13)
+          expect(course_parser.model.end_age).to eq(17)
         end
       end
     end
@@ -61,8 +61,8 @@ RSpec.describe Parser, :type => :model do
       let(:raw_age_line) { "Adult" }
 
       it "sets the start age for adults only" do
-        expect(parser.course.start_age).to eq(18)
-        expect(parser.course.end_age).to be_nil
+        expect(course_parser.model.start_age).to eq(18)
+        expect(course_parser.model.end_age).to be_nil
       end
     end
 
@@ -70,8 +70,8 @@ RSpec.describe Parser, :type => :model do
       let(:raw_age_line) { "Teen/Adult" }
 
       it "sets the start age for teens and adults" do
-        expect(parser.course.start_age).to eq(13)
-        expect(parser.course.end_age).to be_nil
+        expect(course_parser.model.start_age).to eq(13)
+        expect(course_parser.model.end_age).to be_nil
       end
     end
 
@@ -80,8 +80,8 @@ RSpec.describe Parser, :type => :model do
         let(:raw_age_line) { "7 and up" }
 
         it "sets the start age for teens and adults" do
-          expect(parser.course.start_age).to eq(7)
-          expect(parser.course.end_age).to be_nil
+          expect(course_parser.model.start_age).to eq(7)
+          expect(course_parser.model.end_age).to be_nil
         end
       end
 
@@ -89,8 +89,8 @@ RSpec.describe Parser, :type => :model do
         let(:raw_age_line) { "10 and up" }
 
         it "sets the start age for teens and adults" do
-          expect(parser.course.start_age).to eq(10)
-          expect(parser.course.end_age).to be_nil
+          expect(course_parser.model.start_age).to eq(10)
+          expect(course_parser.model.end_age).to be_nil
         end
       end
     end
@@ -99,25 +99,25 @@ RSpec.describe Parser, :type => :model do
   describe "#parse_day_and_time" do
 
     before do
-      parser.parse_day_and_time raw_day_and_time_line
+      course_parser.parse_day_and_time raw_day_and_time_line
     end
 
     context "normal date entery with non trailing or leading whitespace" do
       let(:raw_day_and_time_line) { "Tuesday 3:30 - 4:30" }
 
       it "sets day, start_time and end_time" do
-        expect(parser.course.day).to eq("Tuesday")
-        expect(parser.course.start_at.to_formatted_s(:time_only).strip).to eq('3:30 pm')
-        expect(parser.course.end_at.to_formatted_s(:time_only).strip).to eq('4:30 pm')
+        expect(course_parser.model.day).to eq("Tuesday")
+        expect(course_parser.model.start_at.to_formatted_s(:time_only).strip).to eq('3:30 pm')
+        expect(course_parser.model.end_at.to_formatted_s(:time_only).strip).to eq('4:30 pm')
       end
 
       context "Saturday morning class" do
         let(:raw_day_and_time_line) { "Saturday 9:30 - 10:30" }
 
         it "sets day, start_time and end_time in morning" do
-          expect(parser.course.day).to eq("Saturday")
-          expect(parser.course.start_at.to_formatted_s(:time_only).strip).to eq('9:30 am')
-          expect(parser.course.end_at.to_formatted_s(:time_only).strip).to eq('10:30 am')
+          expect(course_parser.model.day).to eq("Saturday")
+          expect(course_parser.model.start_at.to_formatted_s(:time_only).strip).to eq('9:30 am')
+          expect(course_parser.model.end_at.to_formatted_s(:time_only).strip).to eq('10:30 am')
         end
       end
 
@@ -125,9 +125,9 @@ RSpec.describe Parser, :type => :model do
         let(:raw_day_and_time_line) { "Saturday 1:30 - 2:30" }
 
         it "sets day, start_time and end_time in afternoon" do
-          expect(parser.course.day).to eq("Saturday")
-          expect(parser.course.start_at.to_formatted_s(:time_only).strip).to eq('1:30 pm')
-          expect(parser.course.end_at.to_formatted_s(:time_only).strip).to eq('2:30 pm')
+          expect(course_parser.model.day).to eq("Saturday")
+          expect(course_parser.model.start_at.to_formatted_s(:time_only).strip).to eq('1:30 pm')
+          expect(course_parser.model.end_at.to_formatted_s(:time_only).strip).to eq('2:30 pm')
         end
       end
     end
@@ -136,9 +136,9 @@ RSpec.describe Parser, :type => :model do
       let(:raw_day_and_time_line) { "Thursday 6:30 - 7:30 " }
 
       it "sets day, start_time and end_time" do
-        expect(parser.course.day).to eq("Thursday")
-        expect(parser.course.start_at.to_formatted_s(:time_only).strip).to eq('6:30 pm')
-        expect(parser.course.end_at.to_formatted_s(:time_only).strip).to eq('7:30 pm')
+        expect(course_parser.model.day).to eq("Thursday")
+        expect(course_parser.model.start_at.to_formatted_s(:time_only).strip).to eq('6:30 pm')
+        expect(course_parser.model.end_at.to_formatted_s(:time_only).strip).to eq('7:30 pm')
       end
     end
 
@@ -148,11 +148,11 @@ RSpec.describe Parser, :type => :model do
     let(:raw_studio_line) { "D" }
 
     before do
-      parser.parse_studio raw_studio_line
+      course_parser.parse_studio raw_studio_line
     end
 
     it "sets studio" do
-      expect(parser.course.studio).to eq("D")
+      expect(course_parser.model.studio).to eq("D")
     end
   end
 end

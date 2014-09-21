@@ -3,7 +3,12 @@ require 'csv'
 namespace :csv_import do
   desc "Import course data from csv"
   task import_courses: :environment do |task, args|
-    Parser.new("South Bay Dance Center", "sbdc_classes_2014.csv").execute
+    CourseParser.new("South Bay Dance Center", "sbdc_classes_2014.csv").execute
+  end
+
+  desc "Import teacher data from csv"
+  task import_teachers: :environment do |task, args|
+    TeacherParser.new("South Bay Dance Center", "sbdc_teachers_2014.csv").execute
   end
 
   desc "Import student and parent data from a quickbooks customer export to csv"
