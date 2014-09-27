@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   resources :students do
     resources :courses
   end
+  resources :teachers do
+    resources :courses
+  end
   resources :courses do
     resources :students
   end

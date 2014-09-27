@@ -11,7 +11,7 @@ class Course < ActiveRecord::Base
     where(studio: studio)
   end
 
-  def self.list(params)
+  def self.list(params={})
     if params[:student_id]
       result = eager_load(:students).where("students.id = ?", params[:student_id].to_i)
     else
@@ -25,6 +25,14 @@ class Course < ActiveRecord::Base
     Date::DAYNAMES[self[:wday]] if self[:wday]
   end
 
+  def start_time
+    formatted_time start_at
+  end
+
+  def end_time
+    formatted_time end_at
+  end
+
   def full?
     return false unless max_size
     max_size <= students.count
@@ -32,5 +40,11 @@ class Course < ActiveRecord::Base
 
   def duration
     (end_at - start_at)/1.hour
+  end
+
+  private
+
+  def formatted_time timestamp
+    timestamp.strftime('%l:%M %P')
   end
 end
